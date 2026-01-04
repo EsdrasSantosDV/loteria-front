@@ -1,12 +1,11 @@
 import { Component, computed, input, output } from "@angular/core";
 
-import {
-  GameType,
-  GAME_CONFIGS,
-} from "../../../../core/singletons/services/game.service";
+import { GameType } from "../../services/game.service";
 import { cn } from "../../../../shared/utils/cn";
 import { PadNumberPipe } from "../../../../shared/pipes/pad-number.pipe";
 import { ActionButtonsComponent } from "../action-buttons/action-buttons.component";
+import { LotteryDefinitionListItem } from "../../../../shared/interfaces/lottery-definition-list-item.interface";
+import { getLotteryDefinitionByGameType } from "../../../../shared/utils/lottery.utils";
 
 @Component({
   selector: "app-selected-numbers",
@@ -42,7 +41,7 @@ import { ActionButtonsComponent } from "../action-buttons/action-buttons.compone
             }
           </div>
 
-          @if (selectedNumbers()?.length === config()?.maxNumbers) {
+          @if (selectedNumbers()?.length === config()?.maxPicks) {
           <div class="mt-4 text-center">
             <p class="text-primary text-sm font-medium animate-pulse">
               ✓ Aposta completa!
@@ -56,6 +55,7 @@ import { ActionButtonsComponent } from "../action-buttons/action-buttons.compone
           <app-action-buttons
             [gameType]="gameType()"
             [selectedNumbers]="selectedNumbers()"
+            [definitions]="definitions()"
             (surpriseEvent)="surpriseEvent.emit()"
             (clearEvent)="clearEvent.emit()"
           ></app-action-buttons>
@@ -70,12 +70,14 @@ export class SelectedNumbersComponent {
   readonly removeNumberEvent = output<number>();
   readonly surpriseEvent = output<void>();
   readonly clearEvent = output<void>();
+  readonly definitions = input<LotteryDefinitionListItem[]>([]);
 
   cn = cn;
 
   config = computed(() => {
     const gameType = this.gameType();
-    return gameType ? GAME_CONFIGS[gameType] : null;
+    if (!gameType) return undefined;
+    return getLotteryDefinitionByGameType(gameType, this.definitions());
   });
 
   sortedNumbers = computed(() => {
@@ -85,7 +87,7 @@ export class SelectedNumbersComponent {
 
   emptySlots = computed(() => {
     const empty =
-      (this.config()?.maxNumbers || 0) - (this.selectedNumbers()?.length || 0);
+      (this.config()?.maxPicks || 0) - (this.selectedNumbers()?.length || 0);
     return Array.from({ length: Math.max(0, empty) });
   });
 }

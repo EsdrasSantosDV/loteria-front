@@ -1,9 +1,8 @@
 import { Component, computed, input, output } from "@angular/core";
 
-import {
-  GameType,
-  GAME_CONFIGS,
-} from "../../../../core/singletons/services/game.service";
+import { GameType } from "../../services/game.service";
+import { LotteryDefinitionListItem } from "../../../../shared/interfaces/lottery-definition-list-item.interface";
+import { getLotteryDefinitionByGameType } from "../../../../shared/utils/lottery.utils";
 
 @Component({
   selector: "app-action-buttons",
@@ -29,9 +28,9 @@ import {
 
       <button
         (click)="handleBet()"
-        [disabled]="!isComplete"
+        [disabled]="!isComplete()"
         [class]="
-          isComplete
+          isComplete()
             ? 'btn-gold flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105'
             : 'bg-muted text-muted-foreground cursor-not-allowed px-6 py-3 rounded-xl font-bold'
         "
@@ -47,26 +46,29 @@ export class ActionButtonsComponent {
   readonly selectedNumbers = input<number[] | null>(null);
   readonly surpriseEvent = output<void>();
   readonly clearEvent = output<void>();
+  readonly definitions = input<LotteryDefinitionListItem[]>([]);
 
   config = computed(() => {
     const gameType = this.gameType();
-    return gameType ? GAME_CONFIGS[gameType] : null;
+    if (!gameType) return undefined;
+    return getLotteryDefinitionByGameType(gameType, this.definitions());
   });
 
   isComplete = computed(() => {
     return (
-      (this.selectedNumbers()?.length || 0) === (this.config()?.maxNumbers || 0)
+      (this.selectedNumbers()?.length || 0) >= (this.config()?.minPicks || 0)
     );
   });
 
   handleBet(): void {
     const selectedNumbers = this.selectedNumbers();
-    if (this.isComplete && selectedNumbers && this.config) {
+    const config = this.config();
+    if (this.isComplete() && selectedNumbers && config) {
       const sortedNumbers = [...selectedNumbers].sort((a, b) => a - b);
       const numbersStr = sortedNumbers
         .map((n) => n.toString().padStart(2, "0"))
         .join(" - ");
-      alert(`Aposta registrada! ${this.config.name}: ${numbersStr}`);
+      alert(`Aposta registrada! ${config.name}: ${numbersStr}`);
     }
   }
 }

@@ -1,24 +1,24 @@
-import { Component, input, output } from "@angular/core";
+import { Component, input, output, computed } from "@angular/core";
 
-import {
-  GameType,
-  GAME_CONFIGS,
-} from "../../../../core/singletons/services/game.service";
+import { GameType } from "../../services/game.service";
 import { cn } from "../../../../shared/utils/cn";
 import { GameIconPipe } from "../../../../shared/pipes/game-icon.pipe";
+import { LotteryDefinitionListItem } from "../../../../shared/interfaces/lottery-definition-list-item.interface";
+import { getGameTypeFromCode } from "../../../../shared/utils/lottery.utils";
 
 @Component({
   selector: "app-game-selector",
   imports: [GameIconPipe],
   template: `
     <div class="flex flex-wrap justify-center gap-3">
-      @for (game of games; track game.id) {
+      @for (game of games(); track game.id) {
       <button
-        (click)="gameChangeEvent.emit(game.id)"
+        (click)="onGameClick(game)"
         [class]="
           cn(
             'game-tab flex items-center gap-2',
-            selectedGame() === game.id && 'active ' + game.id
+            selectedGame() === getGameType(game) &&
+              'active ' + getGameType(game)
           )
         "
       >
@@ -32,7 +32,16 @@ import { GameIconPipe } from "../../../../shared/pipes/game-icon.pipe";
 export class GameSelectorComponent {
   readonly selectedGame = input<GameType | null>(null);
   readonly gameChangeEvent = output<GameType>();
+  readonly games = input<LotteryDefinitionListItem[]>([]);
 
-  games = Object.values(GAME_CONFIGS);
   cn = cn;
+
+  getGameType = (game: LotteryDefinitionListItem): GameType => {
+    return getGameTypeFromCode(game.gameCode);
+  };
+
+  onGameClick(game: LotteryDefinitionListItem): void {
+    const gameType = getGameTypeFromCode(game.gameCode);
+    this.gameChangeEvent.emit(gameType);
+  }
 }

@@ -11,6 +11,7 @@ export class GameIconPipe implements PipeTransform {
       clover: "🍀",
       star: "⭐",
       sparkles: "✨",
+      diamond: "💎",
     };
     return icons[iconName] || "🎲";
   }

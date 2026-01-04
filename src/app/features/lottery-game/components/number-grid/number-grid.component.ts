@@ -1,10 +1,9 @@
 import { Component, computed, input, output } from "@angular/core";
 
-import {
-  GameType,
-  GAME_CONFIGS,
-} from "../../../../core/singletons/services/game.service";
+import { GameType } from "../../services/game.service";
 import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
+import { LotteryDefinitionListItem } from "../../../../shared/interfaces/lottery-definition-list-item.interface";
+import { getLotteryDefinitionByGameType } from "../../../../shared/utils/lottery.utils";
 
 @Component({
   selector: "app-number-grid",
@@ -15,7 +14,7 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
         <p class="text-muted-foreground text-sm">{{ config()?.description }}</p>
         <p class="text-foreground font-semibold mt-1">
           Selecionados: {{ selectedNumbers()?.length || 0 }} /
-          {{ config()?.maxNumbers }}
+          {{ config()?.maxPicks }}
         </p>
       </div>
 
@@ -23,7 +22,11 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
         class="grid gap-3 sm:gap-2 justify-center"
         [style.grid-template-columns]="
           'repeat(' +
-          (gameType() === 'lotofacil' ? 5 : 10) +
+          (gameType() === 'lotofacil'
+            ? 5
+            : gameType() === 'lotomania'
+            ? 10
+            : 10) +
           ', minmax(0, 1fr))'
         "
       >
@@ -44,22 +47,32 @@ export class NumberGridComponent {
   readonly gameType = input<GameType | null>(null);
   readonly selectedNumbers = input<number[] | null>(null);
   readonly numberClickEvent = output<number>();
+  readonly definitions = input<LotteryDefinitionListItem[]>([]);
 
   config = computed(() => {
     const gameType = this.gameType();
-    return gameType ? GAME_CONFIGS[gameType] : null;
+    if (!gameType) return undefined;
+    return getLotteryDefinitionByGameType(gameType, this.definitions());
   });
 
   numbers = computed(() => {
     const config = this.config();
-    return config
-      ? Array.from({ length: config.totalNumbers }, (_, i) => i + 1)
-      : [];
+    const gameType = this.gameType();
+    if (!config) return [];
+
+    if (gameType === "lotomania") {
+      return Array.from(
+        { length: config.numberPoolMaxNumbers + 1 },
+        (_, i) => i
+      );
+    }
+
+    return Array.from({ length: config.numberPoolMaxNumbers }, (_, i) => i + 1);
   });
 
   isMaxSelected = computed(() => {
     return (
-      (this.selectedNumbers()?.length || 0) >= (this.config()?.maxNumbers || 0)
+      (this.selectedNumbers()?.length || 0) >= (this.config()?.maxPicks || 0)
     );
   });
 }

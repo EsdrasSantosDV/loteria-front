@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { FooterComponent } from "../footer/footer.component";
-import { GameService } from "../../core/singletons/services/game.service";
+import { GameService } from "../../features/lottery-game/services/game.service";
 
 @Component({
   selector: "app-main-layout",

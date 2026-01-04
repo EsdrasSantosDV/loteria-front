@@ -1,6 +1,6 @@
 import { Component, computed, input } from "@angular/core";
 
-import { GameType } from "../../../../core/singletons/services/game.service";
+import { GameType } from "../../services/game.service";
 
 const PRIZE_DATA: Record<
   GameType,
@@ -20,6 +20,11 @@ const PRIZE_DATA: Record<
     accumulated: "R$ 1.800.000",
     nextDraw: "Terça, 04/01",
     prize: "R$ 2,50",
+  },
+  lotomania: {
+    accumulated: "R$ 12.000.000",
+    nextDraw: "Sábado, 07/01",
+    prize: "R$ 3,00",
   },
 };
 

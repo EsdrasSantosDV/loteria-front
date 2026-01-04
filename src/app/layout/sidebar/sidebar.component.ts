@@ -1,6 +1,6 @@
 import { Component, computed, input, signal } from "@angular/core";
 
-import { GameType } from "../../core/singletons/services/game.service";
+import { GameType } from "../../features/lottery-game/services/game.service";
 import { cn } from "../../shared/utils/cn";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 
@@ -37,7 +37,8 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
                 'text-xl',
                 selectedGame() === 'mega-sena' && 'text-primary',
                 selectedGame() === 'quina' && 'text-purple-400',
-                selectedGame() === 'lotofacil' && 'text-pink-400'
+                selectedGame() === 'lotofacil' && 'text-pink-400',
+                selectedGame() === 'lotomania' && 'text-cyan-400'
               )
             "
             >{{ getGameIcon() }}</span
@@ -102,6 +103,7 @@ export class SidebarComponent {
     "mega-sena": "🍀",
     quina: "⭐",
     lotofacil: "✨",
+    lotomania: "💎",
   });
   cn = cn;
 

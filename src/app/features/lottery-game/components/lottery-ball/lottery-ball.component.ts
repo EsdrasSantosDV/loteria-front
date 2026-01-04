@@ -27,7 +27,9 @@ import { PadNumberPipe } from "../../../../shared/pipes/pad-number.pipe";
 export class LotteryBallComponent {
   readonly number = input.required<number>();
   readonly selected = input(false);
-  readonly gameType = input<"mega-sena" | "quina" | "lotofacil">("mega-sena");
+  readonly gameType = input<"mega-sena" | "quina" | "lotofacil" | "lotomania">(
+    "mega-sena"
+  );
   readonly disabled = input(false);
   readonly onClick = output<void>();
 
