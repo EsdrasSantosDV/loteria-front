@@ -2,6 +2,7 @@ import { Component, input, output } from "@angular/core";
 
 import { cn } from "../../../../shared/utils/cn";
 import { PadNumberPipe } from "../../../../shared/pipes/pad-number.pipe";
+import { GameType } from "../../services/game.service";
 
 @Component({
   selector: "app-lottery-ball",
@@ -27,9 +28,7 @@ import { PadNumberPipe } from "../../../../shared/pipes/pad-number.pipe";
 export class LotteryBallComponent {
   readonly number = input.required<number>();
   readonly selected = input(false);
-  readonly gameType = input<"mega-sena" | "quina" | "lotofacil" | "lotomania">(
-    "mega-sena"
-  );
+  readonly gameType = input<GameType>("mega-sena");
   readonly disabled = input(false);
   readonly onClick = output<void>();
 

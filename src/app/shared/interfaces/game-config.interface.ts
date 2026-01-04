@@ -9,3 +9,4 @@ export interface GameConfig {
   description: string;
 }
 
+
