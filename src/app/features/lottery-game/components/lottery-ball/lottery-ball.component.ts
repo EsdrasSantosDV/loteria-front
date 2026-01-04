@@ -1,10 +1,11 @@
 import { Component, input, output } from "@angular/core";
 
 import { cn } from "../../../../shared/utils/cn";
+import { PadNumberPipe } from "../../../../shared/pipes/pad-number.pipe";
 
 @Component({
   selector: "app-lottery-ball",
-  imports: [],
+  imports: [PadNumberPipe],
   template: `
     <button
       (click)="onClick.emit()"
@@ -19,7 +20,7 @@ import { cn } from "../../../../shared/utils/cn";
         )
       "
     >
-      {{ number().toString().padStart(2, "0") }}
+      {{ number() | padNumber }}
     </button>
   `,
 })

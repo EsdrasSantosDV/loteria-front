@@ -1,4 +1,4 @@
-import { Component, input, output } from "@angular/core";
+import { Component, computed, input, output } from "@angular/core";
 
 import {
   GameType,
@@ -48,16 +48,16 @@ export class ActionButtonsComponent {
   readonly surpriseEvent = output<void>();
   readonly clearEvent = output<void>();
 
-  get config() {
+  config = computed(() => {
     const gameType = this.gameType();
     return gameType ? GAME_CONFIGS[gameType] : null;
-  }
+  });
 
-  get isComplete(): boolean {
+  isComplete = computed(() => {
     return (
-      (this.selectedNumbers()?.length || 0) === (this.config?.maxNumbers || 0)
+      (this.selectedNumbers()?.length || 0) === (this.config()?.maxNumbers || 0)
     );
-  }
+  });
 
   handleBet(): void {
     const selectedNumbers = this.selectedNumbers();

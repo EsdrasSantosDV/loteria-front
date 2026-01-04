@@ -5,10 +5,11 @@ import {
   GAME_CONFIGS,
 } from "../../../../core/singletons/services/game.service";
 import { cn } from "../../../../shared/utils/cn";
+import { GameIconPipe } from "../../../../shared/pipes/game-icon.pipe";
 
 @Component({
   selector: "app-game-selector",
-  imports: [],
+  imports: [GameIconPipe],
   template: `
     <div class="flex flex-wrap justify-center gap-3">
       @for (game of games; track game.id) {
@@ -21,7 +22,7 @@ import { cn } from "../../../../shared/utils/cn";
           )
         "
       >
-        <span [innerHTML]="getIcon(game.icon)"></span>
+        <span>{{ game.icon | gameIcon }}</span>
         <span>{{ game.name }}</span>
       </button>
       }
@@ -34,13 +35,4 @@ export class GameSelectorComponent {
 
   games = Object.values(GAME_CONFIGS);
   cn = cn;
-
-  getIcon(iconName: string): string {
-    const icons: Record<string, string> = {
-      clover: "🍀",
-      star: "⭐",
-      sparkles: "✨",
-    };
-    return icons[iconName] || "🎲";
-  }
 }

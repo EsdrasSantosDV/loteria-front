@@ -1,4 +1,4 @@
-import { Component, input, output } from "@angular/core";
+import { Component, computed, input, output } from "@angular/core";
 
 import {
   GameType,
@@ -12,10 +12,10 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
   template: `
     <div class="glass-card p-6">
       <div class="text-center mb-6">
-        <p class="text-muted-foreground text-sm">{{ config?.description }}</p>
+        <p class="text-muted-foreground text-sm">{{ config()?.description }}</p>
         <p class="text-foreground font-semibold mt-1">
           Selecionados: {{ selectedNumbers()?.length || 0 }} /
-          {{ config?.maxNumbers }}
+          {{ config()?.maxNumbers }}
         </p>
       </div>
 
@@ -27,7 +27,7 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
           ', minmax(0, 1fr))'
         "
       >
-        @for (number of numbers; track number) {
+        @for (number of numbers(); track number) {
         <app-lottery-ball
           [number]="number"
           [selected]="selectedNumbers()?.includes(number) || false"
@@ -45,21 +45,21 @@ export class NumberGridComponent {
   readonly selectedNumbers = input<number[] | null>(null);
   readonly numberClickEvent = output<number>();
 
-  get config() {
+  config = computed(() => {
     const gameType = this.gameType();
     return gameType ? GAME_CONFIGS[gameType] : null;
-  }
+  });
 
-  get numbers(): number[] {
-    if (this.config) {
-      return Array.from({ length: this.config.totalNumbers }, (_, i) => i + 1);
-    }
-    return [];
-  }
+  numbers = computed(() => {
+    const config = this.config();
+    return config
+      ? Array.from({ length: config.totalNumbers }, (_, i) => i + 1)
+      : [];
+  });
 
-  get isMaxSelected(): boolean {
+  isMaxSelected = computed(() => {
     return (
-      (this.selectedNumbers()?.length || 0) >= (this.config?.maxNumbers || 0)
+      (this.selectedNumbers()?.length || 0) >= (this.config()?.maxNumbers || 0)
     );
-  }
+  });
 }

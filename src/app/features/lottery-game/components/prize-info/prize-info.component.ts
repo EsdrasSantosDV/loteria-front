@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 
 import { GameType } from "../../../../core/singletons/services/game.service";
 
@@ -28,6 +28,7 @@ const PRIZE_DATA: Record<
   imports: [],
   template: `
     <div class="glass-card p-6">
+      @let data = dataComputed();
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="text-center">
           <div
@@ -69,8 +70,8 @@ const PRIZE_DATA: Record<
 export class PrizeInfoComponent {
   readonly gameType = input<GameType | null>(null);
 
-  get data() {
+  dataComputed = computed(() => {
     const gameType = this.gameType();
     return gameType ? PRIZE_DATA[gameType] : null;
-  }
+  });
 }

@@ -71,24 +71,4 @@ import { ActionButtonsComponent } from "../../components/action-buttons/action-b
 })
 export class GameLotteryPlayComponent {
   gameService = inject(GameService);
-
-  onGameChange(game: GameType): void {
-    this.gameService.setSelectedGame(game);
-  }
-
-  onNumberClick(number: number): void {
-    this.gameService.toggleNumber(number);
-  }
-
-  onRemoveNumber(number: number): void {
-    this.gameService.removeNumber(number);
-  }
-
-  onSurprise(): void {
-    this.gameService.generateSurprise();
-  }
-
-  onClear(): void {
-    this.gameService.clearNumbers();
-  }
 }
