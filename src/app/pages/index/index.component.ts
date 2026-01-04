@@ -1,6 +1,9 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { GameService, GameType } from "../../services/game.service";
+import {
+  GameService,
+  GameType,
+} from "../../core/singletons/services/game.service";
 import { LotteryHeaderComponent } from "../../components/lottery-header/lottery-header.component";
 import { GameSelectorComponent } from "../../components/game-selector/game-selector.component";
 import { PrizeInfoComponent } from "../../components/prize-info/prize-info.component";
@@ -10,18 +13,18 @@ import { ActionButtonsComponent } from "../../components/action-buttons/action-b
 import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 
 @Component({
-    selector: "app-index",
-    imports: [
-        CommonModule,
-        LotteryHeaderComponent,
-        GameSelectorComponent,
-        PrizeInfoComponent,
-        NumberGridComponent,
-        SelectedNumbersComponent,
-        ActionButtonsComponent,
-        SidebarComponent,
-    ],
-    template: `
+  selector: "app-index",
+  imports: [
+    CommonModule,
+    LotteryHeaderComponent,
+    GameSelectorComponent,
+    PrizeInfoComponent,
+    NumberGridComponent,
+    SelectedNumbersComponent,
+    ActionButtonsComponent,
+    SidebarComponent,
+  ],
+  template: `
     <div class="min-h-screen bg-background flex">
       <!-- Sidebar -->
       <app-sidebar [selectedGame]="selectedGame$ | async"></app-sidebar>
@@ -81,7 +84,7 @@ import { SidebarComponent } from "../../components/sidebar/sidebar.component";
         </div>
       </div>
     </div>
-  `
+  `,
 })
 export class IndexComponent implements OnInit {
   private gameService = inject(GameService);

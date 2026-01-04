@@ -1,24 +1,32 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output } from "@angular/core";
 
-import { GameType, GAME_CONFIGS } from '../../services/game.service';
-import { cn } from '../../utils/cn';
+import {
+  GameType,
+  GAME_CONFIGS,
+} from "../../core/singletons/services/game.service";
+import { cn } from "../../shared/utils/cn";
 
 @Component({
-    selector: 'app-game-selector',
-    imports: [],
-    template: `
+  selector: "app-game-selector",
+  imports: [],
+  template: `
     <div class="flex flex-wrap justify-center gap-3">
       @for (game of games; track game.id) {
-        <button
-          (click)="gameChangeEvent.emit(game.id)"
-          [class]="cn('game-tab flex items-center gap-2', selectedGame() === game.id && 'active ' + game.id)"
-        >
-          <span [innerHTML]="getIcon(game.icon)"></span>
-          <span>{{ game.name }}</span>
-        </button>
+      <button
+        (click)="gameChangeEvent.emit(game.id)"
+        [class]="
+          cn(
+            'game-tab flex items-center gap-2',
+            selectedGame() === game.id && 'active ' + game.id
+          )
+        "
+      >
+        <span [innerHTML]="getIcon(game.icon)"></span>
+        <span>{{ game.name }}</span>
+      </button>
       }
     </div>
-  `
+  `,
 })
 export class GameSelectorComponent {
   readonly selectedGame = input<GameType | null>(null);
@@ -29,11 +37,10 @@ export class GameSelectorComponent {
 
   getIcon(iconName: string): string {
     const icons: Record<string, string> = {
-      clover: '🍀',
-      star: '⭐',
-      sparkles: '✨'
+      clover: "🍀",
+      star: "⭐",
+      sparkles: "✨",
     };
-    return icons[iconName] || '🎲';
+    return icons[iconName] || "🎲";
   }
 }
-
