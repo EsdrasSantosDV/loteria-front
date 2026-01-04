@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
+
 import { GameType } from '../../services/game.service';
 
 const PRIZE_DATA: Record<GameType, { accumulated: string; nextDraw: string; prize: string }> = {
@@ -22,7 +22,7 @@ const PRIZE_DATA: Record<GameType, { accumulated: string; nextDraw: string; priz
 
 @Component({
     selector: 'app-prize-info',
-    imports: [CommonModule],
+    imports: [],
     template: `
     <div class="glass-card p-6">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -54,10 +54,11 @@ const PRIZE_DATA: Record<GameType, { accumulated: string; nextDraw: string; priz
   `
 })
 export class PrizeInfoComponent {
-  @Input() gameType: GameType | null = null;
+  readonly gameType = input<GameType | null>(null);
 
   get data() {
-    return this.gameType ? PRIZE_DATA[this.gameType] : null;
+    const gameType = this.gameType();
+    return gameType ? PRIZE_DATA[gameType] : null;
   }
 }
 

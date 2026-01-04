@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
+
 import { GameType } from '../../services/game.service';
 import { cn } from '../../utils/cn';
 
@@ -20,7 +20,7 @@ const gameIcons: Record<GameType, string> = {
 
 @Component({
     selector: 'app-sidebar',
-    imports: [CommonModule],
+    imports: [],
     template: `
     <aside class="hidden lg:flex flex-col w-64 min-h-screen bg-card/50 backdrop-blur-xl border-r border-border/50">
       <!-- Logo -->
@@ -42,9 +42,9 @@ const gameIcons: Record<GameType, string> = {
         <div class="flex items-center gap-2">
           <span [class]="cn(
             'text-xl',
-            selectedGame === 'mega-sena' && 'text-primary',
-            selectedGame === 'quina' && 'text-purple-400',
-            selectedGame === 'lotofacil' && 'text-pink-400'
+            selectedGame() === 'mega-sena' && 'text-primary',
+            selectedGame() === 'quina' && 'text-purple-400',
+            selectedGame() === 'lotofacil' && 'text-pink-400'
           )">{{ getGameIcon() }}</span>
           <span class="font-semibold capitalize">{{ getGameName() }}</span>
         </div>
@@ -97,17 +97,19 @@ const gameIcons: Record<GameType, string> = {
   `
 })
 export class SidebarComponent {
-  @Input() selectedGame: GameType | null = null;
+  readonly selectedGame = input<GameType | null>(null);
 
   menuItems = menuItems;
   cn = cn;
 
   getGameIcon(): string {
-    return this.selectedGame ? gameIcons[this.selectedGame] : '🎲';
+    const selectedGame = this.selectedGame();
+    return selectedGame ? gameIcons[selectedGame] : '🎲';
   }
 
   getGameName(): string {
-    return this.selectedGame ? this.selectedGame.replace('-', ' ') : '';
+    const selectedGame = this.selectedGame();
+    return selectedGame ? selectedGame.replace('-', ' ') : '';
   }
 }
 

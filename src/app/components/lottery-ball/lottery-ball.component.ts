@@ -1,30 +1,30 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output } from '@angular/core';
+
 import { cn } from '../../utils/cn';
 
 @Component({
     selector: 'app-lottery-ball',
-    imports: [CommonModule],
+    imports: [],
     template: `
     <button
       (click)="onClick.emit()"
-      [disabled]="disabled"
+      [disabled]="disabled()"
       [class]="cn(
         'lottery-ball',
-        selected && 'selected ' + gameType,
-        disabled && !selected && 'opacity-50 cursor-not-allowed hover:scale-100'
+        selected() && 'selected ' + gameType(),
+        disabled() && !selected() && 'opacity-50 cursor-not-allowed hover:scale-100'
       )"
     >
-      {{ number.toString().padStart(2, '0') }}
+      {{ number().toString().padStart(2, '0') }}
     </button>
   `
 })
 export class LotteryBallComponent {
-  @Input() number!: number;
-  @Input() selected = false;
-  @Input() gameType: 'mega-sena' | 'quina' | 'lotofacil' = 'mega-sena';
-  @Input() disabled = false;
-  @Output() onClick = new EventEmitter<void>();
+  readonly number = input.required<number>();
+  readonly selected = input(false);
+  readonly gameType = input<'mega-sena' | 'quina' | 'lotofacil'>('mega-sena');
+  readonly disabled = input(false);
+  readonly onClick = output<void>();
 
   cn = cn;
 }

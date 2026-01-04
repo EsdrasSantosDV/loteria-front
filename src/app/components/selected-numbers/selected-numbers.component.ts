@@ -1,18 +1,18 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output } from '@angular/core';
+
 import { GameType, GAME_CONFIGS } from '../../services/game.service';
 import { cn } from '../../utils/cn';
 
 @Component({
     selector: 'app-selected-numbers',
-    imports: [CommonModule],
+    imports: [],
     template: `
     <div class="glass-card p-6">
       <h3 class="text-lg font-semibold text-center mb-4">Seus Números</h3>
       
       <div class="flex flex-wrap justify-center gap-2">
         @for (number of sortedNumbers; track number) {
-          <div [class]="cn('selected-number relative group', gameType || 'mega-sena')">
+          <div [class]="cn('selected-number relative group', gameType() || 'mega-sena')">
             {{ number.toString().padStart(2, '0') }}
             <button
               (click)="removeNumberEvent.emit(number)"
@@ -30,7 +30,7 @@ import { cn } from '../../utils/cn';
         }
       </div>
 
-      @if (selectedNumbers?.length === config?.maxNumbers) {
+      @if (selectedNumbers()?.length === config?.maxNumbers) {
         <div class="mt-4 text-center">
           <p class="text-primary text-sm font-medium animate-pulse">
             ✓ Aposta completa!
@@ -41,22 +41,24 @@ import { cn } from '../../utils/cn';
   `
 })
 export class SelectedNumbersComponent {
-  @Input() gameType: GameType | null = null;
-  @Input() selectedNumbers: number[] | null = null;
-  @Output() removeNumberEvent = new EventEmitter<number>();
+  readonly gameType = input<GameType | null>(null);
+  readonly selectedNumbers = input<number[] | null>(null);
+  readonly removeNumberEvent = output<number>();
 
   cn = cn;
 
   get config() {
-    return this.gameType ? GAME_CONFIGS[this.gameType] : null;
+    const gameType = this.gameType();
+    return gameType ? GAME_CONFIGS[gameType] : null;
   }
 
   get sortedNumbers(): number[] {
-    return this.selectedNumbers ? [...this.selectedNumbers].sort((a, b) => a - b) : [];
+    const selectedNumbers = this.selectedNumbers();
+    return selectedNumbers ? [...selectedNumbers].sort((a, b) => a - b) : [];
   }
 
   get emptySlots(): number[] {
-    const empty = (this.config?.maxNumbers || 0) - (this.selectedNumbers?.length || 0);
+    const empty = (this.config?.maxNumbers || 0) - (this.selectedNumbers()?.length || 0);
     return Array.from({ length: Math.max(0, empty) });
   }
 }

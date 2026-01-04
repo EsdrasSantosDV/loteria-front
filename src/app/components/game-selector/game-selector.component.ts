@@ -1,17 +1,17 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output } from '@angular/core';
+
 import { GameType, GAME_CONFIGS } from '../../services/game.service';
 import { cn } from '../../utils/cn';
 
 @Component({
     selector: 'app-game-selector',
-    imports: [CommonModule],
+    imports: [],
     template: `
     <div class="flex flex-wrap justify-center gap-3">
       @for (game of games; track game.id) {
         <button
           (click)="gameChangeEvent.emit(game.id)"
-          [class]="cn('game-tab flex items-center gap-2', selectedGame === game.id && 'active ' + game.id)"
+          [class]="cn('game-tab flex items-center gap-2', selectedGame() === game.id && 'active ' + game.id)"
         >
           <span [innerHTML]="getIcon(game.icon)"></span>
           <span>{{ game.name }}</span>
@@ -21,8 +21,8 @@ import { cn } from '../../utils/cn';
   `
 })
 export class GameSelectorComponent {
-  @Input() selectedGame: GameType | null = null;
-  @Output() gameChangeEvent = new EventEmitter<GameType>();
+  readonly selectedGame = input<GameType | null>(null);
+  readonly gameChangeEvent = output<GameType>();
 
   games = Object.values(GAME_CONFIGS);
   cn = cn;

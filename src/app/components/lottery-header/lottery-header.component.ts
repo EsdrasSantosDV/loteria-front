@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-lottery-header',
-    imports: [CommonModule],
+    imports: [],
     template: `
     <header class="text-center py-8">
       <div class="flex items-center justify-center gap-3 mb-4">

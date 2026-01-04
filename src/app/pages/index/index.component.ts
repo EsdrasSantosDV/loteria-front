@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { GameService, GameType } from "../../services/game.service";
 import { LotteryHeaderComponent } from "../../components/lottery-header/lottery-header.component";
@@ -84,10 +84,12 @@ import { SidebarComponent } from "../../components/sidebar/sidebar.component";
   `
 })
 export class IndexComponent implements OnInit {
+  private gameService = inject(GameService);
+
   selectedGame$;
   selectedNumbers$;
 
-  constructor(private gameService: GameService) {
+  constructor() {
     this.selectedGame$ = this.gameService.selectedGame$;
     this.selectedNumbers$ = this.gameService.selectedNumbers$;
   }
