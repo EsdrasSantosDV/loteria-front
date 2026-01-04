@@ -9,12 +9,12 @@ import { GameService } from "../../core/singletons/services/game.service";
   selector: "app-main-layout",
   imports: [CommonModule, RouterOutlet, SidebarComponent, FooterComponent],
   template: `
-    <div class="min-h-screen bg-background flex">
+    <div class="min-h-screen bg-background">
       <app-sidebar
         [selectedGame]="gameService.selectedGame$ | async"
       ></app-sidebar>
 
-      <div class="flex-1 relative">
+      <div class="lg:ml-64 relative">
         <div class="fixed inset-0 overflow-hidden pointer-events-none">
           <div
             class="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"

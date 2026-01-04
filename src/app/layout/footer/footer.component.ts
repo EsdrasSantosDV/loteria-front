@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   imports: [],
   template: `
     <footer class="mt-12 text-center text-muted-foreground text-sm">
-      <p>© 2026 Loterias - Boa sorte! 🍀</p>
+      <p>© 2026 Loterias Esdras Santos - Boa sorte! 🍀</p>
     </footer>
   `,
 })

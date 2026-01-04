@@ -8,7 +8,7 @@ import { cn } from "../../shared/utils/cn";
   imports: [],
   template: `
     <aside
-      class="hidden lg:flex flex-col w-64 min-h-screen bg-card/50 backdrop-blur-xl border-r border-border/50"
+      class="hidden lg:flex flex-col w-64 fixed top-0 left-0 h-screen bg-card/50 backdrop-blur-xl border-r border-border/50 z-20"
     >
       <!-- Logo -->
       <div class="p-6 border-b border-border/50">
