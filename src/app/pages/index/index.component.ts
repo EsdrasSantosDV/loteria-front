@@ -10,19 +10,18 @@ import { ActionButtonsComponent } from "../../components/action-buttons/action-b
 import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 
 @Component({
-  selector: "app-index",
-  standalone: true,
-  imports: [
-    CommonModule,
-    LotteryHeaderComponent,
-    GameSelectorComponent,
-    PrizeInfoComponent,
-    NumberGridComponent,
-    SelectedNumbersComponent,
-    ActionButtonsComponent,
-    SidebarComponent,
-  ],
-  template: `
+    selector: "app-index",
+    imports: [
+        CommonModule,
+        LotteryHeaderComponent,
+        GameSelectorComponent,
+        PrizeInfoComponent,
+        NumberGridComponent,
+        SelectedNumbersComponent,
+        ActionButtonsComponent,
+        SidebarComponent,
+    ],
+    template: `
     <div class="min-h-screen bg-background flex">
       <!-- Sidebar -->
       <app-sidebar [selectedGame]="selectedGame$ | async"></app-sidebar>
@@ -82,7 +81,7 @@ import { SidebarComponent } from "../../components/sidebar/sidebar.component";
         </div>
       </div>
     </div>
-  `,
+  `
 })
 export class IndexComponent implements OnInit {
   selectedGame$;

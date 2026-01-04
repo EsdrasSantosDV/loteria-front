@@ -21,10 +21,9 @@ const PRIZE_DATA: Record<GameType, { accumulated: string; nextDraw: string; priz
 };
 
 @Component({
-  selector: 'app-prize-info',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-prize-info',
+    imports: [CommonModule],
+    template: `
     <div class="glass-card p-6">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="text-center">

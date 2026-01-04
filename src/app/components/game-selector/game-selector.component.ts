@@ -4,10 +4,9 @@ import { GameType, GAME_CONFIGS } from '../../services/game.service';
 import { cn } from '../../utils/cn';
 
 @Component({
-  selector: 'app-game-selector',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-game-selector',
+    imports: [CommonModule],
+    template: `
     <div class="flex flex-wrap justify-center gap-3">
       @for (game of games; track game.id) {
         <button

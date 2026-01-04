@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-lottery-header',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-lottery-header',
+    imports: [CommonModule],
+    template: `
     <header class="text-center py-8">
       <div class="flex items-center justify-center gap-3 mb-4">
         <span class="w-10 h-10 text-primary animate-float text-2xl">🎫</span>

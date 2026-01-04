@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { GameType, GAME_CONFIGS } from '../../services/game.service';
 
 @Component({
-  selector: 'app-action-buttons',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-action-buttons',
+    imports: [CommonModule],
+    template: `
     <div class="flex flex-wrap justify-center gap-4">
       <button
         (click)="surpriseEvent.emit()"

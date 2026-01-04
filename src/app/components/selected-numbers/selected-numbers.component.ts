@@ -4,10 +4,9 @@ import { GameType, GAME_CONFIGS } from '../../services/game.service';
 import { cn } from '../../utils/cn';
 
 @Component({
-  selector: 'app-selected-numbers',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-selected-numbers',
+    imports: [CommonModule],
+    template: `
     <div class="glass-card p-6">
       <h3 class="text-lg font-semibold text-center mb-4">Seus Números</h3>
       

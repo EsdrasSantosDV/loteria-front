@@ -3,10 +3,9 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
 @Component({
-  selector: "app-not-found",
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `
+    selector: "app-not-found",
+    imports: [CommonModule, RouterModule],
+    template: `
     <div class="flex min-h-screen items-center justify-center bg-muted">
       <div class="text-center">
         <h1 class="mb-4 text-4xl font-bold">404</h1>
@@ -18,6 +17,6 @@ import { RouterModule } from "@angular/router";
         </a>
       </div>
     </div>
-  `,
+  `
 })
 export class NotFoundComponent {}

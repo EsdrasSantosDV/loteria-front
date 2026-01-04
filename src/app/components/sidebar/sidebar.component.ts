@@ -19,10 +19,9 @@ const gameIcons: Record<GameType, string> = {
 };
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-sidebar',
+    imports: [CommonModule],
+    template: `
     <aside class="hidden lg:flex flex-col w-64 min-h-screen bg-card/50 backdrop-blur-xl border-r border-border/50">
       <!-- Logo -->
       <div class="p-6 border-b border-border/50">

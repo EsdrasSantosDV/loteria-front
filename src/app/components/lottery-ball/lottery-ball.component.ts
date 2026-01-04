@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { cn } from '../../utils/cn';
 
 @Component({
-  selector: 'app-lottery-ball',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-lottery-ball',
+    imports: [CommonModule],
+    template: `
     <button
       (click)="onClick.emit()"
       [disabled]="disabled"

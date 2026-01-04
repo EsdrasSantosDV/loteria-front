@@ -4,10 +4,9 @@ import { GameType, GAME_CONFIGS } from '../../services/game.service';
 import { LotteryBallComponent } from '../lottery-ball/lottery-ball.component';
 
 @Component({
-  selector: 'app-number-grid',
-  standalone: true,
-  imports: [CommonModule, LotteryBallComponent],
-  template: `
+    selector: 'app-number-grid',
+    imports: [CommonModule, LotteryBallComponent],
+    template: `
     <div class="glass-card p-6">
       <div class="text-center mb-6">
         <p class="text-muted-foreground text-sm">{{ config?.description }}</p>
