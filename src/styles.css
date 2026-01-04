@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 60 20% 98%;
+
+    --card: 220 20% 10%;
+    --card-foreground: 60 20% 98%;
+
+    --popover: 220 20% 10%;
+    --popover-foreground: 60 20% 98%;
+
+    --primary: 152 76% 42%;
+    --primary-foreground: 60 20% 98%;
+
+    --secondary: 220 20% 15%;
+    --secondary-foreground: 60 20% 98%;
+
+    --muted: 220 15% 20%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 45 100% 55%;
+    --accent-foreground: 220 20% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 60 20% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 152 76% 42%;
+
+    --radius: 0.75rem;
+
+    /* Lottery specific colors */
+    --mega-sena: 152 76% 42%;
+    --quina: 280 80% 55%;
+    --lotofacil: 340 85% 55%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(152, 76%, 42%) 0%, hsl(170, 80%, 35%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45, 100%, 55%) 0%, hsl(35, 100%, 45%) 100%);
+    --gradient-mega: linear-gradient(135deg, hsl(152, 76%, 42%) 0%, hsl(170, 80%, 35%) 100%);
+    --gradient-quina: linear-gradient(135deg, hsl(280, 80%, 55%) 0%, hsl(260, 85%, 45%) 100%);
+    --gradient-lotofacil: linear-gradient(135deg, hsl(340, 85%, 55%) 0%, hsl(320, 80%, 45%) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 30px hsl(152 76% 42% / 0.3);
+    --shadow-gold: 0 0 30px hsl(45 100% 55% / 0.3);
+    --shadow-card: 0 8px 32px hsl(220 20% 0% / 0.4);
+
+    --sidebar-background: 220 20% 10%;
+    --sidebar-foreground: 60 20% 98%;
+    --sidebar-primary: 152 76% 42%;
+    --sidebar-primary-foreground: 60 20% 98%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 60 20% 98%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 152 76% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Outfit', 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  .lottery-ball {
+    @apply w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all duration-300 ease-out;
+    @apply bg-secondary hover:bg-muted border-2 border-transparent;
+    @apply hover:scale-110 hover:border-primary/50;
+  }
+
+  .lottery-ball.selected {
+    @apply border-transparent scale-110;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-glow);
+    animation: pop 0.3s ease-out;
+  }
+
+  .lottery-ball.selected.mega-sena {
+    background: var(--gradient-mega);
+    box-shadow: 0 0 20px hsl(152 76% 42% / 0.5);
+  }
+
+  .lottery-ball.selected.quina {
+    background: var(--gradient-quina);
+    box-shadow: 0 0 20px hsl(280 80% 55% / 0.5);
+  }
+
+  .lottery-ball.selected.lotofacil {
+    background: var(--gradient-lotofacil);
+    box-shadow: 0 0 20px hsl(340 85% 55% / 0.5);
+  }
+
+  .game-tab {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300 cursor-pointer;
+    @apply bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground;
+  }
+
+  .game-tab.active {
+    @apply text-foreground;
+  }
+
+  .game-tab.active.mega-sena {
+    background: var(--gradient-mega);
+    box-shadow: 0 0 20px hsl(152 76% 42% / 0.4);
+  }
+
+  .game-tab.active.quina {
+    background: var(--gradient-quina);
+    box-shadow: 0 0 20px hsl(280 80% 55% / 0.4);
+  }
+
+  .game-tab.active.lotofacil {
+    background: var(--gradient-lotofacil);
+    box-shadow: 0 0 20px hsl(340 85% 55% / 0.4);
+  }
+
+  .btn-gold {
+    background: var(--gradient-gold);
+    @apply text-background font-bold px-6 py-3 rounded-xl transition-all duration-300;
+    @apply hover:scale-105 active:scale-95;
+    box-shadow: var(--shadow-gold);
+  }
+
+  .btn-primary {
+    background: var(--gradient-primary);
+    @apply text-foreground font-bold px-6 py-3 rounded-xl transition-all duration-300;
+    @apply hover:scale-105 active:scale-95;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .selected-number {
+    @apply w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .selected-number.mega-sena {
+    background: var(--gradient-mega);
+  }
+
+  .selected-number.quina {
+    background: var(--gradient-quina);
+  }
+
+  .selected-number.lotofacil {
+    background: var(--gradient-lotofacil);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-gold);
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px) scale(0.8); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px hsl(152 76% 42% / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(152 76% 42% / 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+

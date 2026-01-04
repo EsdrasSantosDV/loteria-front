@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-lottery-header',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <header class="text-center py-8">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="w-10 h-10 text-primary animate-float text-2xl">🎫</span>
+        <h1 class="text-4xl sm:text-5xl font-extrabold">
+          <span class="text-gradient">Loterias</span>
+        </h1>
+        <span class="w-10 h-10 text-accent animate-float text-2xl" style="animation-delay: 0.5s">🏆</span>
+      </div>
+      <p class="text-muted-foreground text-lg">
+        Escolha seus números da sorte e realize seus sonhos! 🍀
+      </p>
+    </header>
+  `
+})
+export class LotteryHeaderComponent {}
+
