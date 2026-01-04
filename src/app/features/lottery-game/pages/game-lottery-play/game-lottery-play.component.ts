@@ -14,7 +14,6 @@ import { GameSelectorComponent } from "../../components/game-selector/game-selec
 import { PrizeInfoComponent } from "../../components/prize-info/prize-info.component";
 import { NumberGridComponent } from "../../components/number-grid/number-grid.component";
 import { SelectedNumbersComponent } from "../../components/selected-numbers/selected-numbers.component";
-import { ActionButtonsComponent } from "../../components/action-buttons/action-buttons.component";
 
 @Component({
   selector: "app-game-lottery-play",
@@ -25,18 +24,18 @@ import { ActionButtonsComponent } from "../../components/action-buttons/action-b
     PrizeInfoComponent,
     NumberGridComponent,
     SelectedNumbersComponent,
-    ActionButtonsComponent,
   ],
   template: `
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-4 sm:gap-6">
       <app-lottery-header></app-lottery-header>
-
-      <div class="space-y-8">
-        <!-- Game Selector -->
+      <div class="-mt-2 sm:-mt-3">
         <app-game-selector
           [selectedGame]="gameService.selectedGame$ | async"
           (gameChangeEvent)="gameService.setSelectedGame($event)"
         ></app-game-selector>
+      </div>
+      <div class="space-y-4 sm:space-y-6">
+        <!-- Game Selector -->
 
         <!-- Prize Info -->
         <app-prize-info
@@ -55,15 +54,9 @@ import { ActionButtonsComponent } from "../../components/action-buttons/action-b
           [gameType]="gameService.selectedGame$ | async"
           [selectedNumbers]="gameService.selectedNumbers$ | async"
           (removeNumberEvent)="gameService.removeNumber($event)"
-        ></app-selected-numbers>
-
-        <!-- Action Buttons -->
-        <app-action-buttons
-          [gameType]="gameService.selectedGame$ | async"
-          [selectedNumbers]="gameService.selectedNumbers$ | async"
           (surpriseEvent)="gameService.generateSurprise()"
           (clearEvent)="gameService.clearNumbers()"
-        ></app-action-buttons>
+        ></app-selected-numbers>
       </div>
     </div>
   `,

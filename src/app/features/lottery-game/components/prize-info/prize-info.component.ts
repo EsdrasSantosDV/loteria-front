@@ -27,7 +27,7 @@ const PRIZE_DATA: Record<
   selector: "app-prize-info",
   imports: [],
   template: `
-    <div class="glass-card p-6">
+    <div class="glass-card py-4 px-6">
       @let data = dataComputed();
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="text-center">

@@ -9,13 +9,13 @@ import { GameService } from "../../core/singletons/services/game.service";
   selector: "app-main-layout",
   imports: [CommonModule, RouterOutlet, SidebarComponent, FooterComponent],
   template: `
-    <div class="min-h-screen bg-background">
+    <div class="h-screen bg-background flex overflow-hidden">
       <app-sidebar
         [selectedGame]="gameService.selectedGame$ | async"
       ></app-sidebar>
 
-      <div class="lg:ml-64 relative">
-        <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div class="flex-1 flex flex-col lg:ml-64 relative overflow-hidden">
+        <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
           <div
             class="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
           ></div>
@@ -24,9 +24,15 @@ import { GameService } from "../../core/singletons/services/game.service";
           ></div>
         </div>
 
-        <div class="relative z-10 container mx-auto px-4 py-6 max-w-4xl">
-          <router-outlet></router-outlet>
-          <app-footer></app-footer>
+        <div class="flex-1 overflow-y-auto relative z-10">
+          <div
+            class="container mx-auto px-4 pb-6 max-w-7xl min-h-full flex flex-col"
+          >
+            <div class="flex-1">
+              <router-outlet></router-outlet>
+            </div>
+            <app-footer></app-footer>
+          </div>
         </div>
       </div>
     </div>

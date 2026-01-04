@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     selector: 'app-lottery-header',
     imports: [],
     template: `
-    <header class="text-center py-8">
+    <header class="text-center pt-4 pb-4">
       <div class="flex items-center justify-center gap-3 mb-4">
         <span class="w-10 h-10 text-primary animate-float text-2xl">🎫</span>
         <h1 class="text-4xl sm:text-5xl font-extrabold">

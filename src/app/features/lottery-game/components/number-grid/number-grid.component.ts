@@ -10,8 +10,8 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
   selector: "app-number-grid",
   imports: [LotteryBallComponent],
   template: `
-    <div class="glass-card p-6">
-      <div class="text-center mb-6">
+    <div class="glass-card py-4 px-6">
+      <div class="text-center mb-4">
         <p class="text-muted-foreground text-sm">{{ config()?.description }}</p>
         <p class="text-foreground font-semibold mt-1">
           Selecionados: {{ selectedNumbers()?.length || 0 }} /
@@ -20,7 +20,7 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
       </div>
 
       <div
-        class="grid gap-2 justify-center"
+        class="grid gap-3 sm:gap-2 justify-center"
         [style.grid-template-columns]="
           'repeat(' +
           (gameType() === 'lotofacil' ? 5 : 10) +
@@ -33,7 +33,7 @@ import { LotteryBallComponent } from "../lottery-ball/lottery-ball.component";
           [selected]="selectedNumbers()?.includes(number) || false"
           (onClick)="numberClickEvent.emit(number)"
           [gameType]="gameType() || 'mega-sena'"
-          [disabled]="isMaxSelected && !selectedNumbers()?.includes(number)"
+          [disabled]="isMaxSelected() && !selectedNumbers()?.includes(number)"
         ></app-lottery-ball>
         }
       </div>
