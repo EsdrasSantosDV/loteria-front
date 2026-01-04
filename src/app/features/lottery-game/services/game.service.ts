@@ -2,6 +2,11 @@ import { inject, Injectable, computed } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { GameType } from "../../../shared/types/game-type.type";
 import { LotteryDefinitionsHttpService } from "@/app/core/singletons/http/lottery.definitions.http.service";
+import { PageResult } from "@/app/shared/interfaces/page-result";
+import { LotteryDefinitionListItem } from "@/app/shared/interfaces/lottery-definition-list-item.interface";
+import { rxResource } from "@angular/core/rxjs-interop";
+import { toObservable } from "@angular/core/rxjs-interop";
+import { getLotteryDefinitionByGameType } from "../../../shared/utils/lottery.utils";
 export type { GameType } from "../../../shared/types/game-type.type";
 export { LotteryGameCode } from "../../../shared/enums/lottery-game-code.enum";
 export type { LotteryDefinitionListItem } from "../../../shared/interfaces/lottery-definition-list-item.interface";
@@ -12,12 +17,6 @@ export {
   getLotteryDefinitionByCode,
   getLotteryDefinitionByGameType,
 } from "../../../shared/utils/lottery.utils";
-import { PageResult } from "@/app/shared/interfaces/page-result";
-import { LotteryDefinitionListItem } from "@/app/shared/interfaces/lottery-definition-list-item.interface";
-import { rxResource } from "@angular/core/rxjs-interop";
-import { CODE_TO_GAME_TYPE } from "../../../shared/constants/lottery.constants";
-import { toObservable } from "@angular/core/rxjs-interop";
-import { getLotteryDefinitionByGameType } from "../../../shared/utils/lottery.utils";
 @Injectable({
   providedIn: "root",
 })
