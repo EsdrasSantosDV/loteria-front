@@ -1,11 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-sidenav',
+  selector: "app-sidenav",
   imports: [],
-  templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.css',
+  template: ` <p>sidenav works!</p> `,
 })
-export class SidenavComponent {
-
-}
+export class SidenavComponent {}

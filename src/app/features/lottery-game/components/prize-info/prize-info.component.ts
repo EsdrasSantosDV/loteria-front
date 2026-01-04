@@ -1,6 +1,6 @@
 import { Component, input } from "@angular/core";
 
-import { GameType } from "../../core/singletons/services/game.service";
+import { GameType } from "../../../../core/singletons/services/game.service";
 
 const PRIZE_DATA: Record<
   GameType,

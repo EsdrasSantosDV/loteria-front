@@ -1,6 +1,6 @@
 import { Component, input, output } from "@angular/core";
 
-import { cn } from "../../shared/utils/cn";
+import { cn } from "../../../../shared/utils/cn";
 
 @Component({
   selector: "app-lottery-ball",

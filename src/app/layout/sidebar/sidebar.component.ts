@@ -1,22 +1,7 @@
-import { Component, input } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 
 import { GameType } from "../../core/singletons/services/game.service";
 import { cn } from "../../shared/utils/cn";
-
-const menuItems = [
-  { icon: "🏠", label: "Início", active: true },
-  { icon: "🎫", label: "Minhas Apostas" },
-  { icon: "📜", label: "Resultados" },
-  { icon: "🔔", label: "Notificações" },
-  { icon: "👤", label: "Minha Conta" },
-  { icon: "❓", label: "Ajuda" },
-];
-
-const gameIcons: Record<GameType, string> = {
-  "mega-sena": "🍀",
-  quina: "⭐",
-  lotofacil: "✨",
-};
 
 @Component({
   selector: "app-sidebar",
@@ -40,7 +25,6 @@ const gameIcons: Record<GameType, string> = {
         </div>
       </div>
 
-      <!-- Current Game -->
       <div
         class="p-4 mx-4 mt-4 rounded-xl bg-secondary/50 border border-border/50"
       >
@@ -64,7 +48,7 @@ const gameIcons: Record<GameType, string> = {
       <!-- Navigation -->
       <nav class="flex-1 p-4">
         <ul class="space-y-1">
-          @for (item of menuItems; track item.label) {
+          @for (item of menuItems(); track item.label) {
           <li>
             <button
               [class]="
@@ -116,16 +100,29 @@ const gameIcons: Record<GameType, string> = {
 export class SidebarComponent {
   readonly selectedGame = input<GameType | null>(null);
 
-  menuItems = menuItems;
+  menuItems = signal([
+    { icon: "🏠", label: "Início", active: true },
+    { icon: "🎫", label: "Minhas Apostas" },
+    { icon: "📜", label: "Resultados" },
+    { icon: "🔔", label: "Notificações" },
+    { icon: "👤", label: "Minha Conta" },
+    { icon: "❓", label: "Ajuda" },
+  ]);
+
+  gameIcons = signal<Record<GameType, string>>({
+    "mega-sena": "🍀",
+    quina: "⭐",
+    lotofacil: "✨",
+  });
   cn = cn;
 
-  getGameIcon(): string {
+  getGameIcon = computed(() => {
     const selectedGame = this.selectedGame();
-    return selectedGame ? gameIcons[selectedGame] : "🎲";
-  }
+    return selectedGame ? this.gameIcons()[selectedGame] : "🎲";
+  });
 
-  getGameName(): string {
+  getGameName = computed(() => {
     const selectedGame = this.selectedGame();
     return selectedGame ? selectedGame.replace("-", " ") : "";
-  }
+  });
 }

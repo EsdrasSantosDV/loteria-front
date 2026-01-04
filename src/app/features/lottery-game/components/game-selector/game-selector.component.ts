@@ -3,8 +3,8 @@ import { Component, input, output } from "@angular/core";
 import {
   GameType,
   GAME_CONFIGS,
-} from "../../core/singletons/services/game.service";
-import { cn } from "../../shared/utils/cn";
+} from "../../../../core/singletons/services/game.service";
+import { cn } from "../../../../shared/utils/cn";
 
 @Component({
   selector: "app-game-selector",

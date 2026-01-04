@@ -8,9 +8,16 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "css",
-          "standalone": true
+          "standalone": true,
+          "skipTests": true,
+          "changeDetection": "OnPush",
+          "inlineStyle": true,
+          "inlineTemplate": true
         },
         "@schematics/angular:directive": {
+          "standalone": true
+        },
+        "@schematics/angular:pipe": {
           "standalone": true
         }
       },

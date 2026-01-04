@@ -3,7 +3,7 @@ import { Component, input, output } from "@angular/core";
 import {
   GameType,
   GAME_CONFIGS,
-} from "../../core/singletons/services/game.service";
+} from "../../../../core/singletons/services/game.service";
 
 @Component({
   selector: "app-action-buttons",

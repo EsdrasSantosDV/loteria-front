@@ -1,64 +1,37 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { FooterComponent } from '../footer/footer.component';
-import {
-  GameService,
-  GameType,
-} from '../../core/singletons/services/game.service';
-import { LotteryHeaderComponent } from '../../features/lottery-game/components/lottery-header/lottery-header.component';
-import { GameSelectorComponent } from '../../features/lottery-game/components/game-selector/game-selector.component';
-import { PrizeInfoComponent } from '../../features/lottery-game/components/prize-info/prize-info.component';
-import { NumberGridComponent } from '../../features/lottery-game/components/number-grid/number-grid.component';
-import { SelectedNumbersComponent } from '../../features/lottery-game/components/selected-numbers/selected-numbers.component';
-import { ActionButtonsComponent } from '../../features/lottery-game/components/action-buttons/action-buttons.component';
+import { Component, OnInit, inject } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterOutlet } from "@angular/router";
+import { SidebarComponent } from "../sidebar/sidebar.component";
+import { FooterComponent } from "../footer/footer.component";
+import { GameService } from "../../core/singletons/services/game.service";
 
 @Component({
-  selector: 'app-main-layout',
-  imports: [
-    CommonModule,
-    SidebarComponent,
-    FooterComponent,
-    LotteryHeaderComponent,
-    GameSelectorComponent,
-    PrizeInfoComponent,
-    NumberGridComponent,
-    SelectedNumbersComponent,
-    ActionButtonsComponent,
-  ],
-  templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.css',
+  selector: "app-main-layout",
+  imports: [CommonModule, RouterOutlet, SidebarComponent, FooterComponent],
+  template: `
+    <div class="min-h-screen bg-background flex">
+      <app-sidebar
+        [selectedGame]="gameService.selectedGame$ | async"
+      ></app-sidebar>
+
+      <div class="flex-1 relative">
+        <div class="fixed inset-0 overflow-hidden pointer-events-none">
+          <div
+            class="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
+          ></div>
+          <div
+            class="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+          ></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-4 py-6 max-w-4xl">
+          <router-outlet></router-outlet>
+          <app-footer></app-footer>
+        </div>
+      </div>
+    </div>
+  `,
 })
-export class MainLayoutComponent implements OnInit {
-  private gameService = inject(GameService);
-
-  selectedGame$;
-  selectedNumbers$;
-
-  constructor() {
-    this.selectedGame$ = this.gameService.selectedGame$;
-    this.selectedNumbers$ = this.gameService.selectedNumbers$;
-  }
-
-  ngOnInit(): void {}
-
-  onGameChange(game: GameType): void {
-    this.gameService.setSelectedGame(game);
-  }
-
-  onNumberClick(number: number): void {
-    this.gameService.toggleNumber(number);
-  }
-
-  onRemoveNumber(number: number): void {
-    this.gameService.removeNumber(number);
-  }
-
-  onSurprise(): void {
-    this.gameService.generateSurprise();
-  }
-
-  onClear(): void {
-    this.gameService.clearNumbers();
-  }
+export class MainLayoutComponent {
+  gameService = inject(GameService);
 }
