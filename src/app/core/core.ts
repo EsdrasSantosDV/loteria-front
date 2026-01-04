@@ -19,17 +19,19 @@ import {
   withInterceptorsFromDi,
 } from "@angular/common/http";
 import { spinnerInterceptor } from "./interceptors/spinner/spinner.interceptor";
-import { authInterceptor } from "./interceptors/auth/auth.interceptor";
 import { loggingInterceptor } from "./interceptors/logging/logging.interceptor";
 import { AppInterceptor } from "./interceptors/app/app.interceptor";
 import { provideTransloco } from "@jsverse/transloco";
 import { TranslocoService } from "./transloco/transloco-loader";
 import {
+  AutoRefreshTokenService,
   createInterceptorCondition,
   INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
   IncludeBearerTokenCondition,
   includeBearerTokenInterceptor,
   provideKeycloak,
+  UserActivityService,
+  withAutoRefreshToken,
 } from "keycloak-angular";
 import { environment } from "@/environments/environment";
 
@@ -57,6 +59,20 @@ export function provideCore({ routes }: CoreOptions) {
         silentCheckSsoRedirectUri:
           window.location.origin + "/silent-check-sso.html",
       },
+      features: [
+        withAutoRefreshToken({
+          onInactivityTimeout: "logout",
+          sessionTimeout: 1000,
+        }),
+      ],
+      providers: [
+        AutoRefreshTokenService,
+        UserActivityService,
+        {
+          provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+          useValue: [urlCondition],
+        },
+      ],
     }),
 
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },

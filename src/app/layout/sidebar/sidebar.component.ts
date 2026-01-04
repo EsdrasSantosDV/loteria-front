@@ -2,10 +2,11 @@ import { Component, computed, input, signal } from "@angular/core";
 
 import { GameType } from "../../core/singletons/services/game.service";
 import { cn } from "../../shared/utils/cn";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @Component({
   selector: "app-sidebar",
-  imports: [],
+  imports: [UserProfileComponent],
   template: `
     <aside
       class="hidden lg:flex flex-col w-64 fixed top-0 left-0 h-screen bg-card/50 backdrop-blur-xl border-r border-border/50 z-20"
@@ -81,19 +82,7 @@ import { cn } from "../../shared/utils/cn";
       </div>
 
       <!-- User -->
-      <div class="p-4 border-t border-border/50">
-        <div class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center"
-          >
-            <span class="text-muted-foreground text-xl">👤</span>
-          </div>
-          <div>
-            <p class="font-medium text-sm">Visitante</p>
-            <p class="text-xs text-muted-foreground">Fazer login</p>
-          </div>
-        </div>
-      </div>
+      <app-user-profile />
     </aside>
   `,
 })
